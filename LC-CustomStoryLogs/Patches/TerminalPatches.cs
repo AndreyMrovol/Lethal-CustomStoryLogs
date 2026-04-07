@@ -54,9 +54,9 @@ public class TerminalPatches
             TerminalKeyword newKeyword = ScriptableObject.CreateInstance<TerminalKeyword>();
             newKeyword.word = data.Keyword;
         
-            CompatibleNoun logNoun1 = new CompatibleNoun();
-            logNoun1.result = newNode;
-            logNoun1.noun = newKeyword;
+            CompatibleNoun logNoun1 = new CompatibleNoun(newKeyword, newNode);
+            // logNoun1.result = newNode;
+            // logNoun1.noun = newKeyword;
 
             if (data.Unlocked && !CustomStoryLogs.GetUnlockedList().Contains(data.LogID))
             {
@@ -119,17 +119,30 @@ public class TerminalPatches
             stringBuilder.Append("\n");
 
             int count = 0;
+            List<int> usedIDs = new List<int>();
+            List<string> usedNames = new List<string>();
+            
             foreach (int logID in CustomStoryLogs.GetUnlockedList())
             {
                 if (!CustomStoryLogs.RegisteredLogs.ContainsKey(logID)) continue;
-
+                
+                if (usedIDs.Contains(logID)) continue;
+                usedIDs.Add(logID);
+                
                 CustomLogData log = CustomStoryLogs.RegisteredLogs[logID];
+                
+                if (usedNames.Contains(log.LogName)) continue;
+                usedNames.Add(log.LogName);
+                    
                 if (!log.Hidden)
                 {
                     stringBuilder.Append("\n" + log.LogName);
                     count += 1;
                 }
             }
+            
+            usedIDs.Clear();
+            usedNames.Clear();
 
             stringBuilder.Append("\n\n\n\n");
 

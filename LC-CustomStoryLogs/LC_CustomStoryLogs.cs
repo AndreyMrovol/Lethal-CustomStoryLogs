@@ -22,7 +22,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 {
     public const string PLUGIN_GUID = "Yorimor.CustomStoryLogs";
     public const string PLUGIN_NAME = "CustomStoryLogs";
-    public const string PLUGIN_VERSION = "1.5.2";
+    public const string PLUGIN_VERSION = "1.6.0";
     
     public static CustomStoryLogs Instance { get; private set; } = null!;
     internal new static ManualLogSource Logger { get; private set; } = null!;
