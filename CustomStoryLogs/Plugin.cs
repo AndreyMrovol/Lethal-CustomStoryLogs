@@ -31,20 +31,20 @@ public class CustomStoryLogs : BaseUnityPlugin
 
 	public static CustomStoryLogs Instance { get; private set; } = null!;
 	internal static new ManualLogSource Logger { get; private set; } = null!;
-	internal static Harmony? Harmony { get; set; }
+	internal static Harmony Harmony { get; set; }
 
-	private static List<string> UsedKeywords = new List<string>();
+	private static List<string> UsedKeywords = [];
 
-	public static Dictionary<int, CustomLogData> RegisteredLogs = new Dictionary<int, CustomLogData>();
+	public static Dictionary<int, CustomLogData> RegisteredLogs = [];
 
-	public static Dictionary<string, List<int>> PlanetCollectables = new Dictionary<string, List<int>>();
-	public static Dictionary<int, LogCollectableData> Collectables = new Dictionary<int, LogCollectableData>();
+	public static Dictionary<string, List<int>> PlanetCollectables = [];
+	public static Dictionary<int, LogCollectableData> Collectables = [];
 
 	public static string UnlockedSaveKey = $"{MyPluginInfo.PLUGIN_GUID}-Unlocked";
 
 	// public static LNetworkVariable<List<int>> UnlockedNetwork = new LNetworkVariable<List<int>>(identifier: "UnlockedList");
-	public static LNetworkVariable<List<int>?> UnlockedNetwork = LNetworkVariable<List<int>?>.Connect(identifier: "UnlockedList");
-	public static List<int>? UnlockedLocal = new List<int>();
+	public static LNetworkVariable<List<int>> UnlockedNetwork = LNetworkVariable<List<int>>.Connect(identifier: "UnlockedList");
+	public static List<int> UnlockedLocal = [];
 
 	// https://github.com/Xilophor/lethal-network-api-docs/blob/rework/docs/api/LethalNetworkAPI.LNetworkMessage.md
 
@@ -63,7 +63,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 	public static AssetBundle MyAssets;
 	public static GameObject CustomLogObj;
 
-	public static List<GameObject> CustomModels = new List<GameObject>();
+	public static List<GameObject> CustomModels = [];
 
 	public static LogCollected AnyLogCollectEvent;
 
@@ -89,7 +89,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 		CustomLogObj = MyAssets.LoadAsset<GameObject>("Assets/Yorimor/CustomStoryLogs/CustomStoryModel.prefab");
 		NetworkPrefabs.RegisterNetworkPrefab(CustomLogObj);
 
-		UnlockedNetwork.Value = new List<int>();
+		UnlockedNetwork.Value = [];
 
 		// SpawnLogsClient.OnReceived += SpawnLogsLocally;
 		// UnlockLogServer.OnReceived += ReceiveUnlockFromClient;
@@ -245,7 +245,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 
 		JsonLogReader.LoadLogsFromUserFiles();
 
-		Logger.LogInfo($"{PLUGIN_GUID} v{PLUGIN_VERSION} loaded!");
+		Logger.LogInfo($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} loaded!");
 
 		// AddTestLogs();
 	}
@@ -253,8 +253,8 @@ public class CustomStoryLogs : BaseUnityPlugin
 	private static void AddTestLogs()
 	{
 		int modelID = RegisterCustomLogModel(MyAssets.LoadAsset<GameObject>("Assets/Yorimor/CustomStoryLogs/Cube.prefab"));
-		int logID = RegisterCustomLog(PLUGIN_GUID, "Test - Test", "Model Test\n\n/\\\n\\/");
-		RegisterCustomLogCollectable(PLUGIN_GUID, logID, "71 Gordion", new Vector3(-28, -2, -15), Vector3.zero);
+		int logID = RegisterCustomLog(MyPluginInfo.PLUGIN_GUID, "Test - Test", "Model Test\n\n/\\\n\\/");
+		RegisterCustomLogCollectable(MyPluginInfo.PLUGIN_GUID, logID, "71 Gordion", new Vector3(-28, -2, -15), Vector3.zero);
 		RegisteredLogs[logID].Event += TestEvent;
 		RegisteredLogs[logID].UpdateText("New text");
 
@@ -285,7 +285,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 
 	public static int RegisterCustomLog(string modGUID, string logName, string text, bool unlocked = false, bool hidden = false)
 	{
-		CustomLogData newLog = new CustomLogData();
+		CustomLogData newLog = new();
 		String[] split = logName.Trim().Split("-")[0].Trim().Split(" ");
 		newLog.Keyword = split[0].ToLower();
 
@@ -319,7 +319,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 		int modelID = 0
 	)
 	{
-		LogCollectableData collectableData = new LogCollectableData();
+		LogCollectableData collectableData = new();
 		if (!RegisteredLogs.ContainsKey(logID))
 		{
 			Logger.LogError($"Custom log not found with ID {logID} for collectable added by {modGUID}");
@@ -341,7 +341,7 @@ public class CustomStoryLogs : BaseUnityPlugin
 
 		if (!PlanetCollectables.ContainsKey(planetName))
 		{
-			PlanetCollectables[planetName] = new List<int>();
+			PlanetCollectables[planetName] = [];
 		}
 
 		Collectables[collectableData.LogID] = collectableData;
