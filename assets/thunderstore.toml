@@ -1,0 +1,39 @@
+[config]
+schemaVersion = "0.0.1"
+
+[general]
+repository = "https://thunderstore.io"
+
+[package]
+namespace = "mrov"
+name = "CustomStoryLogs"
+description = "Lethal Company mod library for adding Custom Story Logs."
+websiteUrl = "https://github.com/AndreyMrovol/LethalCustomStoryLogs"
+containsNsfwContent = false
+
+[package.dependencies]
+BepInEx-BepInExPack = "5.4.2100"
+
+[build]
+icon = "../icon.png"
+readme = "../README.md"
+outdir = "../CustomStoryLogs/dist"
+
+[[build.copy]]
+source = "../CustomStoryLogs/bin/Release/netstandard2.1/Yorimor.CustomStoryLogs.dll"
+target = "/"
+
+[[build.copy]]
+source = "./yorimor.customlogs"
+target = "/"
+
+# [[build.copy]]
+# source = "../CHANGELOG.md"
+# target = "/"
+
+[[build.copy]]
+source = "../LICENSE.md"
+target = "/"
+
+[publish]
+communities = [ "lethal-company", ]
