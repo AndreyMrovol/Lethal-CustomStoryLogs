@@ -7,17 +7,16 @@ using UnityEngine;
 
 namespace CustomStoryLogs.Patches;
 
-
 [HarmonyPatch(typeof(PlayerControllerB))]
 internal class PlayerControllerBPatch
 {
-    [HarmonyPatch("ConnectClientToPlayerObject")]
-    [HarmonyPostfix]
-    public static void ConnectClientToPlayerObjectPatch(ref PlayerControllerB __instance)
-    {
-        if(__instance.IsOwner && __instance.IsHost && CustomStoryLogs.ToolEnabled.Value)
-        {
-            __instance.gameObject.AddComponent<LogPlacementTool>();
-        }
-    }
+	[HarmonyPatch("ConnectClientToPlayerObject")]
+	[HarmonyPostfix]
+	public static void ConnectClientToPlayerObjectPatch(ref PlayerControllerB __instance)
+	{
+		if (__instance.IsOwner && __instance.IsHost && CustomStoryLogs.ToolEnabled.Value)
+		{
+			__instance.gameObject.AddComponent<LogPlacementTool>();
+		}
+	}
 }
