@@ -11,17 +11,9 @@
 
 		<RootNamespace>CustomStoryLogs</RootNamespace>
 
-		<PackageId>$(AssemblyName)</PackageId>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<IsPackable>true</IsPackable>
-
-		<!-- Enable Nullable for better IDE null-checking -->
-		<!-- <Nullable>enable</Nullable> -->
-
-		<PackageIcon>icon.png</PackageIcon>
 		<PackageTags>lethal;company;</PackageTags>
 
-		<BepInExPluginGuid>$(PackageId)</BepInExPluginGuid>
+		<BepInExPluginGuid>$(AssemblyName)</BepInExPluginGuid>
 	</PropertyGroup>
 
 	<PropertyGroup>
