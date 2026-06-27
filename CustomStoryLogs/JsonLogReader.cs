@@ -51,7 +51,7 @@ public class JsonLogReader
 	{
 		CustomStoryLogs.Logger.LogInfo($"Loading logs from {jsonPath.Split("BepInEx").Last()}");
 		string content = File.ReadAllText(jsonPath);
-		JsonLogsFile logsFile = new JsonLogsFile();
+		JsonLogsFile logsFile = new();
 
 		try
 		{

@@ -19,7 +19,7 @@ public class TerminalPatches
 			CustomStoryLogs.UnlockedNetwork.Value = ES3.Load<List<int>>(
 				CustomStoryLogs.UnlockedSaveKey,
 				GameNetworkManager.Instance.currentSaveFileName,
-				new List<int>()
+				[]
 			);
 		}
 
@@ -58,7 +58,7 @@ public class TerminalPatches
 			TerminalKeyword newKeyword = ScriptableObject.CreateInstance<TerminalKeyword>();
 			newKeyword.word = data.Keyword;
 
-			CompatibleNoun logNoun1 = new CompatibleNoun(newKeyword, newNode);
+			CompatibleNoun logNoun1 = new(newKeyword, newNode);
 			// logNoun1.result = newNode;
 			// logNoun1.noun = newKeyword;
 
@@ -80,7 +80,7 @@ public class TerminalPatches
 	{
 		if (node.name.Contains("LogsHub"))
 		{
-			List<int> fixedLogs = new List<int>();
+			List<int> fixedLogs = [];
 			foreach (int logID in __instance.unlockedStoryLogs)
 			{
 				if (logID < __instance.logEntryFiles.Count)
@@ -90,7 +90,7 @@ public class TerminalPatches
 			}
 			__instance.unlockedStoryLogs = fixedLogs;
 
-			List<int> fixedNewLogs = new List<int>();
+			List<int> fixedNewLogs = [];
 			foreach (int logID in __instance.newlyUnlockedStoryLogs)
 			{
 				if (logID < __instance.logEntryFiles.Count)
@@ -109,7 +109,7 @@ public class TerminalPatches
 		if (node.name.Contains("LogsHub") && CustomStoryLogs.HideVanillaLogs.Value)
 		{
 			CustomStoryLogs.Logger.LogDebug("Resetting vanilla unlocked logs to hide from terminal");
-			__instance.unlockedStoryLogs = new List<int>();
+			__instance.unlockedStoryLogs = [];
 		}
 	}
 
@@ -119,12 +119,12 @@ public class TerminalPatches
 	{
 		if (node.name.Contains("LogsHub"))
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			stringBuilder.Append("\n");
 
 			int count = 0;
-			List<int> usedIDs = new List<int>();
-			List<string> usedNames = new List<string>();
+			List<int> usedIDs = [];
+			List<string> usedNames = [];
 
 			foreach (int logID in CustomStoryLogs.GetUnlockedList())
 			{

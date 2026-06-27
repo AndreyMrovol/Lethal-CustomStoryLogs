@@ -22,18 +22,25 @@ public class LogPlacementUI : MonoBehaviour
 	public void OnSave(int btnID)
 	{
 		CustomStoryLogs.Logger.LogInfo($"Saving Tool Data {btnID}!");
-		PlacementToolData data = new PlacementToolData();
-		data.moon = StartOfRound.Instance.currentLevel.PlanetName;
+		PlacementToolData data =
+			new()
+			{
+				moon = StartOfRound.Instance.currentLevel.PlanetName,
 
-		data.position = new PlacementToolVector();
-		data.position.x = LogTransform.position.x;
-		data.position.y = LogTransform.position.y;
-		data.position.z = LogTransform.position.z;
+				position = new PlacementToolVector
+				{
+					x = LogTransform.position.x,
+					y = LogTransform.position.y,
+					z = LogTransform.position.z
+				},
 
-		data.rotation = new PlacementToolVector();
-		data.rotation.x = LogTransform.rotation.eulerAngles.x;
-		data.rotation.y = LogTransform.rotation.eulerAngles.y;
-		data.rotation.z = LogTransform.rotation.eulerAngles.z;
+				rotation = new PlacementToolVector
+				{
+					x = LogTransform.rotation.eulerAngles.x,
+					y = LogTransform.rotation.eulerAngles.y,
+					z = LogTransform.rotation.eulerAngles.z
+				}
+			};
 
 		string path = Path.Combine(Paths.PluginPath, "Yorimor-CustomStoryLogs", "tool_data");
 		Directory.CreateDirectory(path);
@@ -111,7 +118,7 @@ public class XYZButton : MonoBehaviour
 		{
 			if (_value < 0f)
 			{
-				_value = 360f - ((_value * -1) % 360f);
+				_value = 360f - (_value * -1 % 360f);
 			}
 
 			if (_value > 360f)

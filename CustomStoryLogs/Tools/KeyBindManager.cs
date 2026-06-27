@@ -8,7 +8,7 @@ delegate void SimpleMethodDelegate();
 
 internal class KeyBindManager
 {
-	public static InputActionMap? customActionMap;
+	public static InputActionMap customActionMap;
 
 	public static InputAction CreateInputAction(string _inputName, string _binding, string _interactions)
 	{

@@ -43,9 +43,9 @@ public class LogPlacementTool : MonoBehaviour
 		playerController = StartOfRound.Instance.localPlayerController;
 
 		//Add Default, Room and Colliders LayerMask
-		layerMask |= (1 << 0);
-		layerMask |= (1 << 8);
-		layerMask |= (1 << 11);
+		layerMask |= 1 << 0;
+		layerMask |= 1 << 8;
+		layerMask |= 1 << 11;
 
 		CustomStoryLogs.Logger.LogInfo("Log Placement tool initialised. Alt+L to Open Tool");
 	}
@@ -80,7 +80,7 @@ public class LogPlacementTool : MonoBehaviour
 			return;
 
 		RaycastHit hit;
-		Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+		Ray ray = new(cam.transform.position, cam.transform.forward);
 
 		if (Physics.Raycast(ray, out hit, 100f, layerMask))
 		{
