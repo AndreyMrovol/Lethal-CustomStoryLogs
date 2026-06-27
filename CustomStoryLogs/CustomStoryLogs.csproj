@@ -17,7 +17,7 @@
         <IsPackable>true</IsPackable>
 
         <!-- Enable Nullable for better IDE null-checking -->
-        <Nullable>enable</Nullable>
+        <!-- <Nullable>enable</Nullable> -->
         
         <PackageIcon>icon.png</PackageIcon>
         <PackageTags>lethal;company;</PackageTags>
